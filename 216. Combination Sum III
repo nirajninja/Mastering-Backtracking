@@ -1,0 +1,40 @@
+class Solution {
+public:
+    //jugad coding h ye bro,thoda idhar se thoda udhar se,aur bn gya acc code.
+    
+    void backtrack(int k,int target,vector<int>&num,vector<vector<int>>&ans,vector<int>&curr,int index )
+    {
+     
+        if(curr.size()==k && target==0)
+        {
+            ans.push_back(curr);
+            return ;
+        }
+        for(int i=index;i<num.size();i++){
+            
+         if(num[i]>target)break;
+            
+        // choose(nums,target,curr,index+1,ans);
+        curr.push_back(num[i]);
+        backtrack(k,target-num[i],num,ans,curr,i+1);
+        //choose(nums,target-nums[i],curr,i+1,ans);
+        curr.pop_back();
+        
+    }
+    }
+        
+    
+    
+    vector<vector<int>> combinationSum3(int k, int n) {
+        
+        vector<int>num={1,2,3,4,5,6,7,8,9};
+        vector<vector<int>>ans;
+        vector<int>curr;
+        backtrack(k,n,num,ans,curr,0);
+        
+        
+        return ans;
+        
+        
+    }
+};
