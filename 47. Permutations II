@@ -1,0 +1,36 @@
+class Solution {
+public:
+    
+    void backtrack(vector<int>nums, set<vector<int>>&ans, int index)
+    {
+        if(index==nums.size())
+        {
+            ans.insert(nums);
+        
+            return ;
+        }
+        
+        for(int i=index;i<nums.size();i++)
+        {
+            swap(nums[i],nums[index]);
+            backtrack(nums,ans,index+1);
+        }
+        
+    }
+    
+    
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        
+        set<vector<int>>ans;
+        
+        backtrack(nums,ans,0);
+        
+        vector<vector<int>>a;
+        for(auto s:ans)
+        {
+            a.push_back(s);
+        }
+        return a;
+        
+    }
+};
