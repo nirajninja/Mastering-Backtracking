@@ -1,0 +1,65 @@
+class Solution {
+public:
+    
+    //sabse pehle grey code find kr,phir use rotate krde jitni, jab tak A[0]!=start
+    //ab agar while loop se rotate krge toh tle ayega
+    //kyuki roate is very expensive
+    // toh ek kaam kr,array traverse kr,aur jab A[i]==start h,tab i ki value start kr de
+    // aur utni baar hi rotate kr de
+    //bas simple as fuck
+     vector<string>gc(int n){
+         if(n==1)
+        {
+            vector<string>bres;
+            bres.push_back("0");
+            bres.push_back("1");
+            return bres;
+        }
+        
+        
+        vector<string>res=gc(n-1);
+        vector<string>ans;
+        for(int i=0;i<res.size();i++)
+        {
+            ans.push_back("0"+res[i]);
+            
+        }
+        for(int i=res.size()-1;i>=0;i--)
+        {
+            ans.push_back("1"+res[i]);
+        }
+        
+        
+        
+        
+        return ans;
+    }
+    
+    vector<int> circularPermutation(int n, int start) {
+  
+        vector<string>mres=gc(n);
+        
+        vector<int>Ans;
+        for(auto x:mres)
+        {
+            Ans.push_back(stoi(x, 0, 2));
+        }
+        int r=0;
+        for(int i=0;i<Ans.size();i++)
+        {
+            if(Ans[i]==start)
+            {
+                r=i;
+                break;
+            }
+        }
+        
+        while(Ans[0]!=start)
+        {
+            std::rotate(Ans.begin(),Ans.begin()+r,Ans.end());
+        }
+        
+        return Ans;
+        
+    }
+};
