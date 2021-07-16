@@ -1,0 +1,60 @@
+class Solution {
+public:
+    
+
+    
+    void permute(string tiles,int index, set<string>&s,string &curr)
+    {
+        s.insert(curr);
+        for(int i=index;i<tiles.size();i++)
+        {
+            curr.push_back(tiles[i]);
+            permute(tiles,i+1,s,curr);
+            curr.pop_back();
+        }
+        
+    }
+    
+    
+    void backtrack(set<string>&ans, string tiles, int index)
+    {
+        if(index==tiles.size())
+        {
+              ans.insert(tiles);
+           // ans.push_back(tiles);
+            return ;
+        }
+        for(int i=index;i<tiles.size();i++)
+        {
+            swap(tiles[i],tiles[index]);
+            backtrack(ans,tiles,index+1);
+        }
+    }
+    
+    
+    int numTilePossibilities(string tiles) {
+
+            set<string>ans;
+            backtrack(ans,tiles,0);
+        
+        
+            set<string>s;
+       
+            for(auto x:ans)
+            {
+                string curr="";
+                //permute
+                permute(x,0,s,curr);
+            }
+        
+            for(auto x:s)
+            {
+                cout<<x<<endl;
+            }
+            return s.size()-1;
+        
+        
+        
+        
+    }
+};
