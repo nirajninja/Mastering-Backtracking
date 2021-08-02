@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int fibn(int n,vector<int>&v)
+    {
+        
+         if(n==0 || n==1)
+        {
+            return n;
+        }
+        
+        if(v[n] != 0)
+        {
+            return v[n];
+        }
+        
+        
+        int fib1=fibn(n-1,v);
+        int fib2=fibn(n-2,v);
+
+        int fib3=fib1+fib2;
+        
+        v[n]=fib3;
+        
+        return fib3;
+    }
+    
+    int fib(int n) {
+    
+        vector<int>v(n+1,0); //= {0};
+        
+        int no = fibn(n,v);
+        
+        return no; 
+        
+    }
+};
+
+
+//ek baar bina reference ke pass krio vector, use dry run kr,phir aayega na maza bidu ..lol
