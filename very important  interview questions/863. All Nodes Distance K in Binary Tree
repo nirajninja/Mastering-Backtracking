@@ -1,0 +1,69 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    
+    vector<int>ans;
+    vector<TreeNode*>paths;
+    void printklevel(TreeNode* root, int k, TreeNode* blocker)
+    {
+        if(root==NULL || k<0 || root==blocker)
+        {
+            return ;
+        }
+        
+        if(k==0)
+        {
+            ans.push_back(root->val);
+            return ;
+        }
+        printklevel(root->left, k-1, blocker);
+        printklevel(root->right, k-1, blocker);
+    }
+    bool findpath(TreeNode* root, int data)
+    {
+        
+        if(root==NULL) return false;
+        if(root->val == data)
+            
+        {
+            paths.push_back(root);
+            return true;
+        }
+        
+        if(findpath(root->left, data))
+        {
+            
+            paths.push_back(root);
+            return true;
+        }
+        if(findpath(root->right,data))
+        {
+            
+            paths.push_back(root);
+            return true;
+        }
+        
+        return false;
+    }
+    
+    
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+        ans.clear();
+        paths.clear();
+        findpath(root,target->val);
+        for(int i=0;i<paths.size();i++)
+        {
+            printklevel(paths[i],k-i,i==0?NULL:paths[i-1]);
+        }
+        return ans;
+        
+    }
+};
